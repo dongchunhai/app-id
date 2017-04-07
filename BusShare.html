@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="EN">
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>业务详情</title>
+		<style>
+			html {
+				font-family: '微软雅黑', 'Arial';
+			}
+			html, body, div, span, iframe, h1, h2, h3, h4, h5, h6, p, pre, a, img, sub, sup, dl, dt, dd, ol, ul, li, form, label, table, tbody, tfoot, thead, tr, th, td {
+				font-weight: normal;
+				background: transparent;
+				border: 0;
+				margin: 0;
+				padding: 0;
+			}
+			a.btn {
+				
+			}
+			body {
+				background: #f0f0f0;
+				font-size: .12rem;
+				color: #333;
+			}
+			.clearfix {
+				*zoom: 1;
+			}
+			.clearfix:before, .clearfix:after {
+				display: table;
+				content: "";
+				line-height: 0;
+			}
+			.clearfix:after {
+				clear: both;
+			}
+			a.btn {
+				display: inline-block;
+				-moz-box-sizing: border-box;
+				-webkit-box-sizing: border-box;
+				-o-box-sizing: border-box;
+				box-sizing: border-box;
+				width: 92%;
+				background: #e6ac54;
+			    margin: 5rem 4%;
+			    color: white;
+			    text-align: center;
+			    text-decoration: none;
+			    vertical-align: middle;
+			    padding-top: .05rem;
+			    border: none;
+			    outline: none;
+			    min-height: 0.8rem;
+			    line-height: 0.8rem;
+				-webkit-border-radius: .05rem;
+				-moz-border-radius: .05rem;
+				border-radius: .05rem;
+			}
+			.tipsMask {
+				display: none;
+				position: fixed;
+				width: 100%;
+				height: 100%;
+				top: 0;
+				left: 0;
+				background-color: rgba(0, 0, 0, 0.5);
+				color: #e6ac54;
+				text-align: center;
+				font-size: 18px;
+				z-index: 10;
+			}
+			.tipsMask span {
+				position: relative;
+				top: 50%;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="btmbtn">
+			<a class="most btn" href="your app-id://" onclick="openApp()" >打开App</a>
+		</div>
+		<div class="tipsMask" onclick="closeMask()">
+			<span>请用浏览器打开</span>
+		</div>
+		<script>
+            function openApp() {
+                var UA = window.navigator.userAgent.toLowerCase();
+                if (UA.match(/MicroMessenger/i) == 'micromessenger') {
+                    $("#tipsMask").show();
+                    return false;
+                } else {
+                    setTimeout(function() {
+                        window.open("http://www.baidu.com", "_self");
+                        // 添加在无App时你想跳转的页面网址
+                    }, 1500);
+                }
+            };
+            function closeMask() {
+            	var tipsMask = document.querySelector('.tipsMask');
+            	tipsMask.style.display = "none";
+            }
+            function getQueryString(name) {
+                var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+                var r = window.location.search.substr(1).match(reg);
+                if (r != null)
+                    return unescape(r[2]);
+                return null;
+            }
+            !function(win) {
+			    function resize() {
+			        var domWidth = domEle.getBoundingClientRect().width;
+			        win.rem = domWidth / 7.5;
+			        domEle.style.fontSize = win.rem + "px";
+			    }
+
+			    var v, initial_scale, timeCode, dom = win.document, domEle = dom.documentElement, viewport = dom.querySelector('meta[name="viewport"]'), flexible = dom.querySelector('meta[name="flexible"]');
+			    if (viewport) {
+			        var o = viewport.getAttribute("content").match(/initial\-scale=(["']?)([\d\.]+)\1?/);
+			        if (o) {
+			            initial_scale = parseFloat(o[2]);
+			            v = parseInt(1 / initial_scale);
+			        }
+			    } else if (flexible) {
+			        var o = flexible.getAttribute("content").match(/initial\-dpr=(["']?)([\d\.]+)\1?/);
+			        if (o) {
+			            v = parseFloat(o[2]);
+			            initial_scale = parseFloat((1 / v).toFixed(2))
+			        }
+			    }
+			    if (!v && !initial_scale) {
+			        var n = (win.navigator.appVersion.match(/android/gi), win.navigator.appVersion.match(/iphone/gi));
+			        v = win.devicePixelRatio;
+			        v = n ? v >= 3 ? 3 : v >= 2 ? 2 : 1 : 1, initial_scale = 1 / v
+			    }
+			    //没有viewport标签的情况下
+			    if (domEle.setAttribute("data-dpr", v), !viewport) {
+			        if ( viewport = dom.createElement("meta"), viewport.setAttribute("name", "viewport"), viewport.setAttribute("content", "initial-scale=" + initial_scale + ", maximum-scale=" + initial_scale + ", minimum-scale=" + initial_scale + ", user-scalable=no"), domEle.firstElementChild) {
+			            domEle.firstElementChild.appendChild(viewport)
+			        } else {
+			            var m = dom.createElement("div");
+			            m.appendChild(viewport), dom.write(m.innerHTML)
+			        }
+			    }
+			    win.dpr = v;
+			    win.addEventListener("resize", function() {
+			        clearTimeout(timeCode), timeCode = setTimeout(resize, 300)
+			    }, false);
+			    win.addEventListener("pageshow", function(b) {
+			        b.persisted && (clearTimeout(timeCode), timeCode = setTimeout(resize, 300))
+			    }, false);
+			    resize();
+			}(window);
+		</script>
+	</body>
+</html>
