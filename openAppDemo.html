@@ -78,13 +78,36 @@
 	</head>
 	<body>
 		<div class="btmbtn">
-			<a class="most btn" href="your app-id://" onclick="openApp()" >打开App</a>
+			<a class="most btn" href="your app-id://" onclick="openApp()" >打开App</a> <!--此处是重点-->
 		</div>
 		<div class="tipsMask" onclick="closeMask()">
 			<span>请用浏览器打开</span>
 		</div>
 		<script>
             function openApp() {
+// 		    if (navigator.userAgent.match(/(iPhone|iPod|iPad);?/i)) {
+// 			var loadDateTime = new Date();
+// 			window.setTimeout(function(){
+// 				var timeOutDateTime = new Date();
+// 				if(timeOutDateTime - loadDateTime < 50){
+// 					window.location = "要跳转的页面URL";
+// 				} else {
+// 					window.close();
+// 				}
+// 			}, 25);
+// 			window.location = "apps url schemes";
+// 		   } else if (navigator.userAgent.match(/android/i)){
+// 			var state = null;
+// 			try {
+// 				state = window.open("apps url schemes", "_blank");
+// 			} catch (e){}
+// 			if (state){
+// 				window.close();
+// 			} else {
+// 				window.location = "要跳转的页面URL";
+// 			}
+// 		   }
+		     
                 var UA = window.navigator.userAgent.toLowerCase();
                 if (UA.match(/MicroMessenger/i) == 'micromessenger') {
                     $("#tipsMask").show();
@@ -92,7 +115,7 @@
                 } else {
                     setTimeout(function() {
                         window.open("http://www.baidu.com", "_self");
-                        // 添加在无App时你想跳转的页面网址
+                        // 添加在无App时你想跳转的页面网址 <!--此处是重点-->
                     }, 1500);
                 }
             };
